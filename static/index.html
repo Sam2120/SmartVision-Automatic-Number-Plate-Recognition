@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ALPR (YOLO11 + OpenOCR)</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Automatic License Plate Detection</h1>
+
+      <form id="uploadForm">
+        <label class="label">Video</label>
+        <input id="video" name="video" type="file" accept="video/*" required />
+
+        <label class="label">YOLO license-plate model</label>
+        <select id="model_preset" name="model_preset">
+          <option value="morsetechlab/yolov11-license-plate-detection/license-plate-finetune-v1s.pt">YOLOv11s (fast)</option>
+          <option value="morsetechlab/yolov11-license-plate-detection/license-plate-finetune-v1m.pt" selected>YOLOv11m (balanced)</option>
+          <option value="morsetechlab/yolov11-license-plate-detection/license-plate-finetune-v1x.pt">YOLOv11x (best)</option>
+          <option value="__custom__">Custom path…</option>
+        </select>
+
+        <div id="customModelWrap" class="hidden">
+          <label class="label">Custom model path</label>
+          <input id="model_path" name="model_path" type="text" placeholder="C:\\path\\to\\weights.pt or org/repo/file.pt" />
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label class="label">Confidence</label>
+            <input id="conf" name="conf" type="number" step="0.01" value="0.25" />
+          </div>
+          <div class="col">
+            <label class="label">IoU</label>
+            <input id="iou" name="iou" type="number" step="0.01" value="0.45" />
+          </div>
+        </div>
+
+        <label class="label">
+          <input id="use_gpu" name="use_gpu" type="checkbox" checked />
+          Use GPU (CUDA) if available
+        </label>
+
+        <button id="submitBtn" type="submit">Upload & Process</button>
+      </form>
+
+      <div id="status" class="status"></div>
+
+      <div id="result" class="result hidden">
+        <h2>Annotated Output</h2>
+        <video id="outVideo" controls></video>
+        <div class="links">
+          <a id="jsonLink" href="#" target="_blank" rel="noreferrer">Download JSON</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

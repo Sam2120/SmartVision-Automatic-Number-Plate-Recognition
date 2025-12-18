@@ -1,0 +1,9 @@
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+python-multipart==0.0.20
+opencv-python==4.10.0.84
+ultralytics==8.3.62
+openocr-python==0.0.10
+onnxruntime==1.20.1
+huggingface_hub==0.24.7
+
